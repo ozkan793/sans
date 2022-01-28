@@ -26,7 +26,7 @@ client.on('message' , msg => {
 
 client.on('message' , msg => {
     if (msg.content.toLowerCase() === 'naber') {
-        msg.channel.send('İyidir, Senden Naber?');
+        msg.channel.send('İyidir, Sennen Naber?');
     }
 });
 
@@ -307,5 +307,5 @@ client.on('message', message => {
       }
     }
   })
- 
-client.login('OTM1MjEzMDA3NjE5OTE1Nzc2.Ye7W_A.IFzDdhQsh9ru2AeKCwVoQJATbZE');
+
+ client.login('OTM1MjEzMDA3NjE5OTE1Nzc2.Ye7W_A.mJget-RoJJ1AjUxB2XG4rb8YYJc');
