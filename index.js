@@ -1,4 +1,4 @@
-const Discord = require('discord.js');
+cconst Discord = require('discord.js');
 const client  = new Discord.Client();
 const işaret = require('./prefix.json');
 const { Client, MessageEmbed } = require('discord.js');
@@ -6,8 +6,8 @@ const { Client, MessageEmbed } = require('discord.js');
 var prefix = işaret.prefix
 
 client.on('ready' , () => {
-    console.log('Sunucuya Girdi Bot');
-    client.user.setActivity('Star Development s!yardım', { type: 'PLAYING' })
+    console.log('Sunucuya Girdi Bot sunucu' + client.guilds.cache.size);
+    client.user.setActivity('Star Development s!yardım | Beni Sunucuna Davet Et! (Sunucuya Ekle tuşuna basmayı unutma! <3)', { type: 'PLAYING' })
   .then(presence => console.log(`Durum ${presence.activities[0].name} oldu.`))
   .catch(console.error);
 });
@@ -26,7 +26,7 @@ client.on('message' , msg => {
 
 client.on('message' , msg => {
     if (msg.content.toLowerCase() === 'naber') {
-        msg.channel.send('İyidir, Sennen Naber?');
+        msg.channel.send('İyidir, Senden Naber?');
     }
 });
 
@@ -35,6 +35,20 @@ client.on('message' , msg => {
         msg.delete()
         msg.channel.send('Sence Bunu Kullanman Serbestmi Sanıyorsun!');
     }
+});
+
+client.on('message' , msg => {
+    if (msg.content.toLowerCase() === 'yarrak') {
+        msg.delete()
+        msg.channel.send('Sence Bunu Kullanman Serbestmi Sanıyorsun!');
+    }
+})
+
+client.on('message' , msg => {
+  if (msg.content.toLowerCase() === prefix + 'besle') {
+    msg.react('😃')
+      msg.channel.send('Beni besledin! Açlıktan ölmüştüm çok sağol. ');
+  }
 });
 
 client.on('message' , msg => {
@@ -141,7 +155,21 @@ client.on('message', message => {
       const kanal = new MessageEmbed()
   
       .setTitle('Sans Bot Bilgi')
-      .setDescription('Yapım Şirketi: STAR DEVELOPMENT \n Yapımcı: SanS#7944 \n Durumum: Geliştirilme \n Premium Durumu: Yok ')
+      .setDescription('Yapım Şirketi: STAR DEVELOPMENT \n Yapımcı: SanS#7944 \n Durumum: Geliştirilme \n Premium Durumu: Yok \n https://discord.gg/tkADDcDTEn Destek Sunucusu!')
+      .setAuthor('SANS')
+      .setColor("RANDOM")
+      .setThumbnail('https://cdn.discordapp.com/attachments/935215087965331499/935484617706831872/sans.png')
+      .addField(' **Star Development Owners:**  *SanS#7944 | WONTED#4467*');
+      message.channel.send(kanal);
+    } 
+  });
+
+  client.on('message', message => {
+    if (message.content.toLowerCase() === prefix + 'yeni') {
+      const kanal = new MessageEmbed()
+  
+      .setTitle('Sans Bota eklenecek özellikler')
+      .setDescription('**Premium;** \n Premium özelliği için Star Development sunucusunda bulunmanız gerekiyor, katılmak için s!botbilgi. Premium 3 bölüm olarak gelecek. Daha fazla bilgi için sunucumuzdaki premium-bilgi kanalına göz atınız.!')
       .setAuthor('SANS')
       .setColor("RANDOM")
       .setThumbnail('https://cdn.discordapp.com/attachments/935215087965331499/935484617706831872/sans.png')
@@ -155,11 +183,11 @@ client.on('message', message => {
       const kanal = new MessageEmbed()
   
       .setTitle('Sansbot Yardım Menüsü')
-      .setDescription(`Destek Sunucumuz İçin s!destek \n Kullanıcıyı Atmak İçin s!kick @user \n Kullanıcıyı Yasaklamak İçin s!ban @user \n Bot hakkında bilgi için s!botbilgi \n Bir üyeye rol atamak için s!rolver @Üye @Rol \n Oylama yapmak için s!oylama |oylama| \n Benim canım kardeşimi görmek için s!kardeşim \n Müzik dinlemek için s!play |müzik veya video urlsi| `)
+      .setDescription(`Destek Sunucumuz İçin: s!destek \n ------------------------------- \n Kullanıcıyı Atmak İçin: s!kick @user \n ------------------------------- \n Kullanıcıyı Yasaklamak İçin: s!ban @user \n ------------------------------- \n Bot hakkında bilgi için: s!botbilgi \n ------------------------------- \n Bir üyeye rol atamak için: s!rolver @Üye @Rol \n ------------------------------- \n Oylama yapmak için s!oylama: |oylama| \n ------------------------------- \n Benim canım kardeşimi görmek için: s!kardeşim \n ------------------------------- \n Müzik dinlemek için: s!play |müzik veya video urlsi| \n ------------------------------- \n Benle sohbet etmek için: sans demen yeterli! \n ------------------------------- \n Dünya turuna çıkmak için: s!dunyaturu \n ------------------------------- \n  Sana film önermem için s!filmöner \n ------------------------------- \n Tarihi yerleri görmek için s!tarihi-gezi \n ------------------------------- \n`)
       .setAuthor('SANS')
       .setColor("RANDOM")
       .setThumbnail('https://cdn.discordapp.com/attachments/935215087965331499/935484617706831872/sans.png')
-      .addField('SanS#7944 | WONTED#4467');
+      .addField('0xYn#7944 | WONTED#4467');
       message.channel.send(kanal);
     }
   });
@@ -265,19 +293,6 @@ client.on('message', message => {
   })
 
   client.on('message', message => {
-    if (message.content.startsWith('s!duyur')) {
-      const kanal = message.mentions.channels.first();
-      if (!message.member.hasPermission('ADMINISTRATOR')) return message.channel.send('Bunu yapamazsın')
-      const args = message.content.split(' ').slice(2)
-      const botmesajı = args.join(" ")
-      if (!botmesajı) return message.reply('Duyurunun ne olduğunu bilmeden duyuru oluşturmamı istiyorsun, benmi yanlış görüyorum?')
-      if(!kanal) return message.reply('Duyuruyu hangi kanala atacağım?')
-      message.delete(message.author)
-      kanal.send(botmesajı);
-    }
-  })
-
-  client.on('message', message => {
     if (message.content.toLowerCase() === 's!fıkra') {
       var Fıkra1 = [
         'Temel aldığı bir daktiloyu bozuk diye geri götürdü. Satıcı: "neresi bozuk? Sapasağlam daktilo!" dedi. Temel: "2 tane a yok saat yazamıyorum!"',
@@ -308,4 +323,104 @@ client.on('message', message => {
     }
   })
 
+  client.on('message', message => {
+    if (message.content.toLowerCase() === 'sans') {
+      var yapayzeka1 = [
+        'Vay be öyle olsun...',
+        'Hayvanlar, onlar çok garip.',
+        'Beni kim yaptı? Ben neyim?!',
+        'Fıkra anlatayımmı?',
+        'Beni durmadan rahatsız etmeye utanmıyormusun!',
+        'Ne var yine!',
+        'Ha'
+      ];
+      var yapayzeka1random = Math.floor(Math.random()*yapayzeka1.length);
+      const embed = new MessageEmbed()
+      .addField('Hey!', `${yapayzeka1[yapayzeka1random]}`)
+      message.reply(embed);
+    }
+  } )
+
+  client.on('message', message => {
+    if (message.content.toLowerCase() === prefix + 'dunyaturu') {
+      var yapayzeka1 = [
+        'Azerbaycan',
+        'Rusya',
+        'Amerika',
+        'Kanada',
+        'Gürcistan',
+        'Yunanistan',
+        'Kırgızistan',
+        'Ukrayna',
+        'Moğolistan',
+        'Burkina Faso',
+        'BAE',
+        'Fransa',
+        'Meksika',
+        'Kuzey Kıbrıs TC',
+        'Almanya',
+        'İtalya',
+        'İngiltere',
+        'Özbekistan',
+        'Suriye',
+        'Çin',
+        'Japonya',
+        'Belçika',
+        'Hollanda',
+        'Çek Cumhuriyeti',
+        'Bahahamalar',
+        'Venezuela',
+        'Dostum biraz dinlen.'
+       ];
+      var yapayzeka1random = Math.floor(Math.random()*yapayzeka1.length);
+      const embed = new MessageEmbed()
+      .addField('Dünya turuna çıktın! Çıkan ülke;', `${yapayzeka1[yapayzeka1random]}`)
+      message.reply(embed);
+    }
+  } )
+
+  client.on('message', message => {
+    if (message.content.toLowerCase() === prefix + 'filmöner') {
+      var yapayzeka1 = [
+       'Spider-Man 1,2,3',
+       'Avengers Serisi',
+       'Doctor Strange',
+       'Venom',
+       'Thor',
+       'Black Panther'
+       ];
+      var yapayzeka1random = Math.floor(Math.random()*yapayzeka1.length);
+      const embed = new MessageEmbed()
+      .addField('Bence İzlemelisin!', `${yapayzeka1[yapayzeka1random]}`)
+      message.reply(embed);
+    }
+  } )
+
+ client.on('message', message => {
+    if (message.content.toLowerCase() === prefix + 'tarihi-gezi') {
+      var yapayzeka1 = [
+       'https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Sumela_From_Across_Valley.JPG/1920px-Sumela_From_Across_Valley.JPG',
+       'https://i.pinimg.com/originals/4c/63/dd/4c63ddadfe943ec225f3a9586bc47772.jpg',
+       'https://images.etstur.com/definitions/etstur/page_management/00eff840cbeda11440163c275816d29d_20210326152250.jpg',
+       'https://media-cdn.t24.com.tr/media/library/2020/06/1591855878989-ayasofya.jpg',
+       'https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Kız_Kulesi_February_2013_01.jpg/405px-Kız_Kulesi_February_2013_01.jpg',
+       'https://blog.obilet.com/wp-content/uploads/2018/07/aspendos-antik-tiyatro.webp',
+       'https://blog.obilet.com/wp-content/uploads/2018/07/nemrut-da%C4%9F%C4%B1.webp',
+       'https://blog.obilet.com/wp-content/uploads/2018/07/an%C4%B1-haraberleri.webp',
+       'https://blog.obilet.com/wp-content/uploads/2018/07',
+       'https://blog.biletbayi.com/wp-content/uploads/2020/03/sultanahmet-camii-768x512.jpg',
+       'https://blog.biletbayi.com/wp-content/uploads/2020/03/gordion-antik-kenti-835x420.jpg',
+       'https://blog.biletbayi.com/wp-content/uploads/2020/03/beypazari-evleri',
+       'uploads/2020/03/bursa-ulu-cami-768x512.jpg'
+       ];
+      var yapayzeka1random = Math.floor(Math.random()*yapayzeka1.length);
+      const embed = new MessageEmbed()
+      .setImage(`${yapayzeka1[yapayzeka1random]}`)
+      .setTitle('Oralar nasıl? Keşke bende gidebilsem!')
+      message.reply(embed);
+    }
+  } )
+
+
+client.login('OTM4MTYzNDk5MzA0MTIwMzcw.YfmS2A.wN9x22vo7Ra7_KdNUCfqQWLXyQw');
  client.login('OTM1MjEzMDA3NjE5OTE1Nzc2.Ye7W_A.mJget-RoJJ1AjUxB2XG4rb8YYJc');
